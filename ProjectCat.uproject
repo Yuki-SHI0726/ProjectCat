@@ -7,7 +7,12 @@
 		{
 			"Name": "ProjectCat",
 			"Type": "Runtime",
-			"LoadingPhase": "Default"
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"UMG",
+				"Engine",
+				"AIModule"
+			]
 		}
 	],
 	"Plugins": [
