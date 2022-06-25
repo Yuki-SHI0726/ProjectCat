@@ -6,6 +6,8 @@
 #include "Characters/ThirdPersonCharacter.h"
 #include "PlayerCharacter.generated.h"
 
+class UGameWidget;
+
 class USpringArmComponent;
 class UCameraComponent;
 
@@ -35,10 +37,16 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseLookUpRate = 45.0f;
 
+	/** Widget used in gameplay */
+	UPROPERTY(BlueprintReadWrite, Category = UI)
+	UGameWidget* GameWidget = nullptr;
+
 public:
 	APlayerCharacter();
 
 protected:
+	void TogglePauseGame();
+
 	/** 
 	 * Called via input to turn at a given rate. 
 	 * @param Rate	This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
