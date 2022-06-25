@@ -14,6 +14,7 @@ class UPanelWidget;
  * - Start a new game
  * - Credits list
  * - Tutorial
+ * - Quit
  */
 UCLASS()
 class PROJECTCAT_API UMenuWidget : public UUserWidget
