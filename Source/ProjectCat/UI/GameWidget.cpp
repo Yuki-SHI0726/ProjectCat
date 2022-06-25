@@ -33,6 +33,7 @@ void UGameWidget::OnToggleGamePaused(bool bIsGamePaused)
 
 void UGameWidget::OnResumeButtonClicked()
 {
+	UGameplayStatics::SetGamePaused(GetWorld(), false);
 	OnToggleGamePaused(false);
 }
 
