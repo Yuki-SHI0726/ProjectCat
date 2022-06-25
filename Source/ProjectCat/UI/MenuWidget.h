@@ -25,12 +25,19 @@ private:
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget, AllowPrivateAccess = true))
 	UPanelWidget* Main_Panel = nullptr;
 
+	/** A panel contains tutorials info */
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget, AllowPrivateAccess = true))
+	UPanelWidget* Tutorials_Panel = nullptr;
+
 	/** A panel contains credits information */
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget, AllowPrivateAccess = true))
 	UPanelWidget* Credits_Panel = nullptr;
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget, AllowPrivateAccess = true))
 	UButton* StartGame_Button = nullptr;
+
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget, AllowPrivateAccess = true))
+	UButton* Tutorials_Button = nullptr;
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget, AllowPrivateAccess = true))
 	UButton* Credits_Button = nullptr;
@@ -47,6 +54,9 @@ public:
 
 	UFUNCTION()
 	void OnStartGameButtonClicked();
+
+	UFUNCTION()
+	void OnTutorialsButtonClicked();
 
 	UFUNCTION()
 	void OnCreditsButtonClicked();
