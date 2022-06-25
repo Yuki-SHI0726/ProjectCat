@@ -31,6 +31,10 @@ void APlayerCharacter::OnGameOver()
 {
 }
 
+void APlayerCharacter::OnLoseStream()
+{
+}
+
 void APlayerCharacter::TogglePauseGame()
 {
 	const bool bIsGamePaused = UGameplayStatics::IsGamePaused(GetWorld());

@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "GameWidget.generated.h"
 
+class UImage;
 class UButton;
 class UPanelWidget;
 
@@ -19,6 +20,11 @@ class PROJECTCAT_API UGameWidget : public UUserWidget
 	GENERATED_BODY()
 	
 private:
+	//----------------------------------------------------------------------------------------------
+	// Gameplay
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget, AllowPrivateAccess = true))
+	UImage* InkOverlay_Image = nullptr;
+
 	//----------------------------------------------------------------------------------------------
 	// Paused scene
 	/** A panel contains widgets when game paused */
@@ -42,6 +48,12 @@ public:
 
 	/** Should be called by the entity who paused the game */
 	void OnToggleGamePaused(bool bIsGamePaused);
+
+	/** 
+	 * Toggle the ink overlay UI
+	 * @bStart		True if we want to start displaying the ink overlay, false if we want to close the ink overlay
+	 */
+	void ToggleInkOverlay(bool bStart);
 
 	UFUNCTION()
 	void OnResumeButtonClicked();

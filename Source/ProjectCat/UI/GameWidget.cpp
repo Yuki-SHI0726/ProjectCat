@@ -4,6 +4,7 @@
 #include "UI/GameWidget.h"
 
 #include "Components/Button.h"
+#include "Components/Image.h"
 #include "Kismet/GameplayStatics.h"
 
 void UGameWidget::NativeConstruct()
@@ -11,6 +12,9 @@ void UGameWidget::NativeConstruct()
 	Super::NativeConstruct();
 
 	OnResumeButtonClicked();
+
+	InkOverlay_Image->SetVisibility(ESlateVisibility::Collapsed);
+	InkOverlay_Image->SetIsEnabled(false);
 
 	Resume_Button->OnClicked.AddDynamic(this, &UGameWidget::OnResumeButtonClicked);
 	BackToMainMenu_Button->OnClicked.AddDynamic(this, &UGameWidget::OnBackButtonClicked);
@@ -29,6 +33,11 @@ void UGameWidget::OnToggleGamePaused(bool bIsGamePaused)
 	{
 		Paused_Panel->SetVisibility(ESlateVisibility::Collapsed);
 	}
+}
+
+void UGameWidget::ToggleInkOverlay(bool bStart)
+{
+
 }
 
 void UGameWidget::OnResumeButtonClicked()

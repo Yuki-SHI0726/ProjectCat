@@ -45,8 +45,13 @@ public:
 	APlayerCharacter();
 
 protected:
+	/** Event to call on game over */
 	UFUNCTION(BlueprintCallable)
 	void OnGameOver();
+
+	/** Event to call on lose stream occurs */
+	UFUNCTION(BlueprintCallable)
+	void OnLoseStream();
 
 	void TogglePauseGame();
 
