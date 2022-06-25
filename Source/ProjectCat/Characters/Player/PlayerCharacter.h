@@ -45,6 +45,9 @@ public:
 	APlayerCharacter();
 
 protected:
+	UFUNCTION(BlueprintCallable)
+	void OnGameOver();
+
 	void TogglePauseGame();
 
 	/** 
