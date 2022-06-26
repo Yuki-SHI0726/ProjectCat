@@ -42,6 +42,9 @@ private:
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget, AllowPrivateAccess = true))
 	UButton* Quit_Button = nullptr;
 
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget, AllowPrivateAccess = true))
+	UImage* Paw_Image = nullptr;
+
 	//----------------------------------------------------------------------------------------------
 	// Tutorials
 	/** A panel contains tutorials info */
@@ -79,6 +82,12 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
 	USoundBase* FlipPageSound = nullptr;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
+	USoundBase* ButtonClickSound = nullptr;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
+	USoundBase* ButtonHoverSound = nullptr;
+
 public:
 	virtual void NativeConstruct() override final;
 
@@ -94,10 +103,22 @@ public:
 	void OnTutorialsButtonClicked();
 
 	UFUNCTION()
+	void OnTutorialsButtonHovered();
+
+	UFUNCTION()
 	void OnCreditsButtonClicked();
 
 	UFUNCTION()
+	void OnCreditsButtonHovered();
+
+	UFUNCTION()
 	void OnQuitButtonClicked();
+
+	UFUNCTION()
+	void OnQuitButtonHovered();
+
+	UFUNCTION()
+	void OnButtonUnhovered();
 
 	//----------------------------------------------------------------------------------------------
 	// Tutorials
