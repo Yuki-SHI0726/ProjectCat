@@ -4,6 +4,7 @@
 #include "MenuWidget.h"
 
 #include "Components/Button.h"
+#include "Components/Image.h"
 #include "Kismet/GameplayStatics.h"
 
 void UMenuWidget::NativeConstruct()
@@ -12,6 +13,19 @@ void UMenuWidget::NativeConstruct()
 
 	GetOwningPlayer()->SetShowMouseCursor(true);
 
+	// Grab all the tutorial images in array. Only set visible the first item
+	for (UWidget* Child : TutorialImages_Panel->GetAllChildren())
+	{
+		if (UImage* TutorialImage = Cast<UImage>(Child))
+		{
+			TutorialImages.Emplace(TutorialImage);
+			if (TutorialImages.Num() > 1)
+			{
+				TutorialImage->SetVisibility(ESlateVisibility::Collapsed);
+			}
+		}
+	}
+
 	Credits_Panel->SetVisibility(ESlateVisibility::Collapsed);
 	Credits_Panel->SetIsEnabled(false);
 	Tutorials_Panel->SetVisibility(ESlateVisibility::Collapsed);
@@ -19,11 +33,18 @@ void UMenuWidget::NativeConstruct()
 	Back_Button->SetVisibility(ESlateVisibility::Collapsed);
 	Back_Button->SetIsEnabled(false);
 
+	// Main
 	StartGame_Button->OnClicked.AddDynamic(this, &UMenuWidget::OnStartGameButtonClicked);
 	Tutorials_Button->OnClicked.AddDynamic(this, &UMenuWidget::OnTutorialsButtonClicked);
 	Credits_Button->OnClicked.AddDynamic(this, &UMenuWidget::OnCreditsButtonClicked);
 	Quit_Button->OnClicked.AddDynamic(this, &UMenuWidget::OnQuitButtonClicked);
+
+	// General
 	Back_Button->OnClicked.AddDynamic(this, &UMenuWidget::OnBackButtonClicked);
+
+	// Tutorials
+	ToLeft_Button->OnClicked.AddDynamic(this, &UMenuWidget::OnToLeftButtonClicked);
+	ToRight_Button->OnClicked.AddDynamic(this, &UMenuWidget::OnToRightButtonClicked);
 }
 
 void UMenuWidget::OnStartGameButtonClicked()
@@ -60,12 +81,18 @@ void UMenuWidget::OnQuitButtonClicked()
 
 void UMenuWidget::OnToLeftButtonClicked()
 {
-	FlipPage(true);
+	if (PageIndex > 0)
+	{
+		FlipPage(true);
+	}
 }
 
 void UMenuWidget::OnToRightButtonClicked()
 {
-	FlipPage(false);
+	if (PageIndex < TutorialImages.Num() - 1)
+	{
+		FlipPage(false);
+	}
 }
 
 void UMenuWidget::FlipPage(bool bToLeft)
@@ -76,7 +103,18 @@ void UMenuWidget::FlipPage(bool bToLeft)
 		UGameplayStatics::PlaySound2D(this, FlipPageSound);
 	}
 
-	// Flip the page to the desired one
+	TutorialImages[PageIndex]->SetVisibility(ESlateVisibility::Collapsed);
+
+	if (bToLeft)
+	{
+		--PageIndex;
+	}
+	else
+	{
+		++PageIndex;
+	}
+
+	TutorialImages[PageIndex]->SetVisibility(ESlateVisibility::Visible);
 }
 
 void UMenuWidget::OnBackButtonClicked()

@@ -56,6 +56,11 @@ private:
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget, AllowPrivateAccess = true))
 	UButton* ToRight_Button = nullptr;
 
+	/** A panel contains tutorials images */
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget, AllowPrivateAccess = true))
+	UPanelWidget* TutorialImages_Panel = nullptr;
+
+	/** Stores all tutorials images */
 	TArray<UImage*> TutorialImages;
 	int32 PageIndex = 0;
 
@@ -71,6 +76,7 @@ private:
 
 	//----------------------------------------------------------------------------------------------
 	// Sounds
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
 	USoundBase* FlipPageSound = nullptr;
 
 public:
