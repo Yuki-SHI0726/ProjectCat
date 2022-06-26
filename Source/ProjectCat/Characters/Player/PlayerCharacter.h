@@ -60,7 +60,7 @@ protected:
 	void LookUpAtRate(float Rate);
 
 	// APawn interface
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override final;
 	// End of APawn interface
 };
 

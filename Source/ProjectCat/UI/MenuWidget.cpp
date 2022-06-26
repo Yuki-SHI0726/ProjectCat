@@ -5,7 +5,11 @@
 
 #include "Components/Button.h"
 #include "Components/Image.h"
+#include "Components/CanvasPanelSlot.h"
 #include "Kismet/GameplayStatics.h"
+
+/** Paw offset from buttons */
+static const FVector2D PawOffset(-100.0f, -10.0f);
 
 void UMenuWidget::NativeConstruct()
 {
@@ -34,10 +38,19 @@ void UMenuWidget::NativeConstruct()
 	Back_Button->SetIsEnabled(false);
 
 	// Main
+	Paw_Image->SetVisibility(ESlateVisibility::Collapsed);
 	StartGame_Button->OnClicked.AddDynamic(this, &UMenuWidget::OnStartGameButtonClicked);
 	Tutorials_Button->OnClicked.AddDynamic(this, &UMenuWidget::OnTutorialsButtonClicked);
 	Credits_Button->OnClicked.AddDynamic(this, &UMenuWidget::OnCreditsButtonClicked);
 	Quit_Button->OnClicked.AddDynamic(this, &UMenuWidget::OnQuitButtonClicked);
+
+	Tutorials_Button->OnHovered.AddDynamic(this, &UMenuWidget::OnTutorialsButtonHovered);
+	Credits_Button->OnHovered.AddDynamic(this, &UMenuWidget::OnCreditsButtonHovered);
+	Quit_Button->OnHovered.AddDynamic(this, &UMenuWidget::OnQuitButtonHovered);
+
+	Tutorials_Button->OnUnhovered.AddDynamic(this, &UMenuWidget::OnButtonUnhovered);
+	Credits_Button->OnUnhovered.AddDynamic(this, &UMenuWidget::OnButtonUnhovered);
+	Quit_Button->OnUnhovered.AddDynamic(this, &UMenuWidget::OnButtonUnhovered);
 
 	// General
 	Back_Button->OnClicked.AddDynamic(this, &UMenuWidget::OnBackButtonClicked);
@@ -54,6 +67,11 @@ void UMenuWidget::OnStartGameButtonClicked()
 
 void UMenuWidget::OnTutorialsButtonClicked()
 {
+	if (ButtonClickSound)
+	{
+		UGameplayStatics::PlaySound2D(this, ButtonClickSound);
+	}
+
 	Main_Panel->SetVisibility(ESlateVisibility::Collapsed);
 	Main_Panel->SetIsEnabled(false);
 
@@ -63,8 +81,31 @@ void UMenuWidget::OnTutorialsButtonClicked()
 	Back_Button->SetIsEnabled(true);
 }
 
+void UMenuWidget::OnTutorialsButtonHovered()
+{
+	if (ButtonHoverSound)
+	{
+		UGameplayStatics::PlaySound2D(this, ButtonHoverSound);
+	}
+
+	Paw_Image->SetVisibility(ESlateVisibility::Visible);
+
+	UCanvasPanelSlot* PawImageCanvasSlot = Cast<UCanvasPanelSlot>(Paw_Image->Slot);
+	UCanvasPanelSlot* TutorialsButtonCanvasSlot = Cast<UCanvasPanelSlot>(Tutorials_Button->Slot);
+
+	const FVector2D TutorialsButtonPosition = TutorialsButtonCanvasSlot->GetPosition();
+	const FVector2D PawImageNewPosition = TutorialsButtonPosition + PawOffset;
+
+	PawImageCanvasSlot->SetPosition(PawImageNewPosition);
+}
+
 void UMenuWidget::OnCreditsButtonClicked()
 {
+	if (ButtonClickSound)
+	{
+		UGameplayStatics::PlaySound2D(this, ButtonClickSound);
+	}
+
 	Main_Panel->SetVisibility(ESlateVisibility::Collapsed);
 	Main_Panel->SetIsEnabled(false);
 
@@ -74,9 +115,55 @@ void UMenuWidget::OnCreditsButtonClicked()
 	Back_Button->SetIsEnabled(true);
 }
 
+void UMenuWidget::OnCreditsButtonHovered()
+{
+	if (ButtonHoverSound)
+	{
+		UGameplayStatics::PlaySound2D(this, ButtonHoverSound);
+	}
+
+	Paw_Image->SetVisibility(ESlateVisibility::Visible);
+
+	UCanvasPanelSlot* PawImageCanvasSlot = Cast<UCanvasPanelSlot>(Paw_Image->Slot);
+	UCanvasPanelSlot* CreditsButtonCanvasSlot = Cast<UCanvasPanelSlot>(Credits_Button->Slot);
+
+	const FVector2D CreditsButtonPosition = CreditsButtonCanvasSlot->GetPosition();
+	const FVector2D PawImageNewPosition = CreditsButtonPosition + PawOffset;
+
+	PawImageCanvasSlot->SetPosition(PawImageNewPosition);
+}
+
 void UMenuWidget::OnQuitButtonClicked()
 {
+	if (ButtonClickSound)
+	{
+		UGameplayStatics::PlaySound2D(this, ButtonClickSound);
+	}
+
 	UKismetSystemLibrary::QuitGame(GetWorld(), GetOwningPlayer(), EQuitPreference::Quit, false);
+}
+
+void UMenuWidget::OnQuitButtonHovered()
+{
+	if (ButtonHoverSound)
+	{
+		UGameplayStatics::PlaySound2D(this, ButtonHoverSound);
+	}
+
+	Paw_Image->SetVisibility(ESlateVisibility::Visible);
+
+	UCanvasPanelSlot* PawImageCanvasSlot = Cast<UCanvasPanelSlot>(Paw_Image->Slot);
+	UCanvasPanelSlot* QuitButtonCanvasSlot = Cast<UCanvasPanelSlot>(Quit_Button->Slot);
+
+	const FVector2D QuitButtonPosition = QuitButtonCanvasSlot->GetPosition();
+	const FVector2D PawImageNewPosition = QuitButtonPosition + PawOffset;
+
+	PawImageCanvasSlot->SetPosition(PawImageNewPosition);
+}
+
+void UMenuWidget::OnButtonUnhovered()
+{
+	Paw_Image->SetVisibility(ESlateVisibility::Collapsed);
 }
 
 void UMenuWidget::OnToLeftButtonClicked()
@@ -119,6 +206,11 @@ void UMenuWidget::FlipPage(bool bToLeft)
 
 void UMenuWidget::OnBackButtonClicked()
 {
+	if (ButtonClickSound)
+	{
+		UGameplayStatics::PlaySound2D(this, ButtonClickSound);
+	}
+
 	Credits_Panel->SetVisibility(ESlateVisibility::Collapsed);
 	Credits_Panel->SetIsEnabled(false);
 	Tutorials_Panel->SetVisibility(ESlateVisibility::Collapsed);
