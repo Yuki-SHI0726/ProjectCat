@@ -58,6 +58,27 @@ void UMenuWidget::OnQuitButtonClicked()
 	UKismetSystemLibrary::QuitGame(GetWorld(), GetOwningPlayer(), EQuitPreference::Quit, false);
 }
 
+void UMenuWidget::OnToLeftButtonClicked()
+{
+	FlipPage(true);
+}
+
+void UMenuWidget::OnToRightButtonClicked()
+{
+	FlipPage(false);
+}
+
+void UMenuWidget::FlipPage(bool bToLeft)
+{
+	// Play flip sound if there's any
+	if (FlipPageSound)
+	{
+		UGameplayStatics::PlaySound2D(this, FlipPageSound);
+	}
+
+	// Flip the page to the desired one
+}
+
 void UMenuWidget::OnBackButtonClicked()
 {
 	Credits_Panel->SetVisibility(ESlateVisibility::Collapsed);

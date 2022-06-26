@@ -4,9 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Utils/TypeDefs.h"
 #include "MenuWidget.generated.h"
 
 class UButton;
+class UImage;
 class UPanelWidget;
 
 /**
@@ -46,6 +48,17 @@ private:
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget, AllowPrivateAccess = true))
 	UPanelWidget* Tutorials_Panel = nullptr;
 
+	/** Move to left page */
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget, AllowPrivateAccess = true))
+	UButton* ToLeft_Button = nullptr;
+
+	/** Move to right page */
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget, AllowPrivateAccess = true))
+	UButton* ToRight_Button = nullptr;
+
+	TArray<UImage*> TutorialImages;
+	int32 PageIndex = 0;
+
 	//----------------------------------------------------------------------------------------------
 	// Credits
 	/** A panel contains credits information */
@@ -56,9 +69,18 @@ private:
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget, AllowPrivateAccess = true))
 	UButton* Back_Button = nullptr;
 
+	//----------------------------------------------------------------------------------------------
+	// Sounds
+	USoundBase* FlipPageSound = nullptr;
+
 public:
 	virtual void NativeConstruct() override final;
 
+	UFUNCTION()
+	void OnBackButtonClicked();
+
+	//----------------------------------------------------------------------------------------------
+	// Main menu
 	UFUNCTION()
 	void OnStartGameButtonClicked();
 
@@ -71,6 +93,14 @@ public:
 	UFUNCTION()
 	void OnQuitButtonClicked();
 
+	//----------------------------------------------------------------------------------------------
+	// Tutorials
 	UFUNCTION()
-	void OnBackButtonClicked();
+	void OnToLeftButtonClicked();
+
+	UFUNCTION()
+	void OnToRightButtonClicked();
+
+private:
+	void FlipPage(bool bToLeft);
 };
