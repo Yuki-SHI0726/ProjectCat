@@ -27,14 +27,6 @@ APlayerCharacter::APlayerCharacter()
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 }
 
-void APlayerCharacter::OnGameOver()
-{
-}
-
-void APlayerCharacter::OnLoseStreak()
-{
-}
-
 void APlayerCharacter::TogglePauseGame()
 {
 	const bool bIsGamePaused = UGameplayStatics::IsGamePaused(GetWorld());

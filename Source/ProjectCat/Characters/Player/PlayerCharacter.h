@@ -41,22 +41,10 @@ protected:
 	UPROPERTY(BlueprintReadWrite, Category = UI)
 	UGameWidget* GameWidget = nullptr;
 
-	/** Time to keep the lose streak effect */
-	UPROPERTY(BlueprintReadWrite, Category = UI)
-	float LoseStreakEffectTime = 1.0f;
-
 public:
 	APlayerCharacter();
 
 protected:
-	/** Event to call on game over */
-	UFUNCTION(BlueprintCallable)
-	void OnGameOver();
-
-	/** Event to call on lose stream occurs */
-	UFUNCTION(BlueprintCallable)
-	void OnLoseStreak();
-
 	void TogglePauseGame();
 
 	/** 

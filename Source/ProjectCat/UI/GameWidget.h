@@ -9,6 +9,7 @@
 class UImage;
 class UButton;
 class UPanelWidget;
+class UTextBlock;
 
 /**
  * UI Widget used in gameplay level
@@ -38,15 +39,25 @@ private:
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget, AllowPrivateAccess = true))
 	UButton* Quit_Button = nullptr;
 
+	//----------------------------------------------------------------------------------------------
+	// Game over scene
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget, AllowPrivateAccess = true))
+	UPanelWidget* GameOver_Panel = nullptr;
+
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget, AllowPrivateAccess = true))
+	UTextBlock* Scoreboard_Text = nullptr;
+
 public:
 	virtual void NativeConstruct() override final;
 
 	/** Should be called by the entity who paused the game */
 	void OnToggleGamePaused(bool bIsGamePaused);
 
-	/** 
-	 * Toggle the ink overlay UI
-	 */
+	/** Shows the game over's UI */
+	UFUNCTION(BlueprintCallable)
+	void ShowGameOverUI(int32 ScoreToDisplay);
+
+	/** Toggle the ink overlay UI */
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
 	void ToggleInkOverlay();
 

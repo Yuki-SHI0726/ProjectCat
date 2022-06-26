@@ -5,6 +5,7 @@
 
 #include "Components/Button.h"
 #include "Components/Image.h"
+#include "Components/TextBlock.h"
 #include "Kismet/GameplayStatics.h"
 
 void UGameWidget::NativeConstruct()
@@ -12,6 +13,9 @@ void UGameWidget::NativeConstruct()
 	Super::NativeConstruct();
 
 	OnResumeButtonClicked();
+
+	GameOver_Panel->SetVisibility(ESlateVisibility::Collapsed);
+	GameOver_Panel->SetIsEnabled(false);
 
 	Resume_Button->OnClicked.AddDynamic(this, &UGameWidget::OnResumeButtonClicked);
 	BackToMainMenu_Button->OnClicked.AddDynamic(this, &UGameWidget::OnBackButtonClicked);
@@ -30,6 +34,14 @@ void UGameWidget::OnToggleGamePaused(bool bIsGamePaused)
 	{
 		Paused_Panel->SetVisibility(ESlateVisibility::Collapsed);
 	}
+}
+
+void UGameWidget::ShowGameOverUI(int32 ScoreToDisplay)
+{
+	GameOver_Panel->SetVisibility(ESlateVisibility::Visible);
+	GameOver_Panel->SetIsEnabled(true);
+
+	Scoreboard_Text->SetText(FText::AsNumber(ScoreToDisplay));
 }
 
 void UGameWidget::OnResumeButtonClicked()
