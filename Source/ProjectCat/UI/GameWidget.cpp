@@ -13,9 +13,6 @@ void UGameWidget::NativeConstruct()
 
 	OnResumeButtonClicked();
 
-	InkOverlay_Image->SetVisibility(ESlateVisibility::Collapsed);
-	InkOverlay_Image->SetIsEnabled(false);
-
 	Resume_Button->OnClicked.AddDynamic(this, &UGameWidget::OnResumeButtonClicked);
 	BackToMainMenu_Button->OnClicked.AddDynamic(this, &UGameWidget::OnBackButtonClicked);
 	Quit_Button->OnClicked.AddDynamic(this, &UGameWidget::OnQuitButtonClicked);
@@ -33,11 +30,6 @@ void UGameWidget::OnToggleGamePaused(bool bIsGamePaused)
 	{
 		Paused_Panel->SetVisibility(ESlateVisibility::Collapsed);
 	}
-}
-
-void UGameWidget::ToggleInkOverlay(bool bStart)
-{
-
 }
 
 void UGameWidget::OnResumeButtonClicked()

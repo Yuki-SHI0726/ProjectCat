@@ -31,7 +31,7 @@ void APlayerCharacter::OnGameOver()
 {
 }
 
-void APlayerCharacter::OnLoseStream()
+void APlayerCharacter::OnLoseStreak()
 {
 }
 

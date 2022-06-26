@@ -21,11 +21,6 @@ class PROJECTCAT_API UGameWidget : public UUserWidget
 	
 private:
 	//----------------------------------------------------------------------------------------------
-	// Gameplay
-	UPROPERTY(BlueprintReadWrite, meta = (BindWidget, AllowPrivateAccess = true))
-	UImage* InkOverlay_Image = nullptr;
-
-	//----------------------------------------------------------------------------------------------
 	// Paused scene
 	/** A panel contains widgets when game paused */
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget, AllowPrivateAccess = true))
@@ -51,9 +46,9 @@ public:
 
 	/** 
 	 * Toggle the ink overlay UI
-	 * @bStart		True if we want to start displaying the ink overlay, false if we want to close the ink overlay
 	 */
-	void ToggleInkOverlay(bool bStart);
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	void ToggleInkOverlay();
 
 	UFUNCTION()
 	void OnResumeButtonClicked();
