@@ -22,6 +22,11 @@ class PROJECTCAT_API UGameWidget : public UUserWidget
 	
 private:
 	//----------------------------------------------------------------------------------------------
+	// Gameplay scene
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget, AllowPrivateAccess = true))
+	UTextBlock* Scoreboard_Gameplay_Text = nullptr;
+
+	//----------------------------------------------------------------------------------------------
 	// Paused scene
 	/** A panel contains widgets when game paused */
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget, AllowPrivateAccess = true))
@@ -45,13 +50,17 @@ private:
 	UPanelWidget* GameOver_Panel = nullptr;
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget, AllowPrivateAccess = true))
-	UTextBlock* Scoreboard_Text = nullptr;
+	UTextBlock* Scoreboard_GameOver_Text = nullptr;
 
 public:
 	virtual void NativeConstruct() override final;
 
 	/** Should be called by the entity who paused the game */
 	void OnToggleGamePaused(bool bIsGamePaused);
+
+	/** Update Gameplay Score */
+	UFUNCTION(BlueprintCallable)
+	void UpdateGameplayScore(int32 ScoreToDisplay);
 
 	/** Shows the game over's UI */
 	UFUNCTION(BlueprintCallable)
