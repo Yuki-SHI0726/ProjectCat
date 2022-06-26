@@ -36,12 +36,17 @@ void UGameWidget::OnToggleGamePaused(bool bIsGamePaused)
 	}
 }
 
+void UGameWidget::UpdateGameplayScore(int32 ScoreToDisplay)
+{
+	Scoreboard_Gameplay_Text->SetText(FText::AsNumber(ScoreToDisplay));
+}
+
 void UGameWidget::ShowGameOverUI(int32 ScoreToDisplay)
 {
 	GameOver_Panel->SetVisibility(ESlateVisibility::Visible);
 	GameOver_Panel->SetIsEnabled(true);
 
-	Scoreboard_Text->SetText(FText::AsNumber(ScoreToDisplay));
+	Scoreboard_GameOver_Text->SetText(FText::AsNumber(ScoreToDisplay));
 }
 
 void UGameWidget::OnResumeButtonClicked()
